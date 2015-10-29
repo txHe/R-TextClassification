@@ -1,0 +1,60 @@
+﻿# R语言——文本分类(3)
+在上一节中，已经生成了我所需要的语料库。接下来就可以分类了：
+
+直接上代码：
+
+    library(tm)
+    library(maxent)
+    
+    traindata <- data.frame(NULL)
+    testdata <- data.frame(NULL)
+    
+    #循环测试
+    for(i in 1:10)
+    {
+      filename <- paste(i,'.txt',sep="")
+      text = read.table(filename, header = TRUE, sep = "\t", row.names=1,fileEncoding = "UTF-8")
+      len <- dim(text)[1] 
+      sam <- trunc(len * 2 / 3) #取文档2/3的数据。trunc函数用于取整
+      traindata <- rbind(traindata,text[1:sam,]) #将2/3的数据放置于训练集
+      k <- sam + 1
+      testdata <- rbind(testdata,text[k:len,]) #剩余的数据放置于测试集
+    }
+    
+    #计算用于最大熵的训练时间
+    ptm <- proc.time()
+    model <- maxent(traindata[,1:556],traindata$tp) #训练模型，顺便计算下时间。
+    ptms <- proc.time() - ptm
+    print(ptms)
+    
+    m <- testdata[,1:556]
+    n <- testdata$tp
+    #计算最大熵模型用于测试的时间
+    ptm <- proc.time()
+    
+    ms <- predict.maxent(model,m)   #测试
+    
+    ptms <- proc.time() - ptm
+    print(ptms)
+    
+    #计算准确率
+    kn <- as.character(n) #类别数组
+    km <- ms[,1]          #预测后的类别数组
+
+    calculate_mean <- function(kn,km)
+    {
+      num <- 0
+      for(i in 1:length(kn))
+      {
+        if(kn[i]==km[i])
+        {
+          num <- num + 1
+        }
+      }
+      return (num/length(kn))
+    }
+    
+    print(calcu;ate_mean(kn,km))
+
+
+
