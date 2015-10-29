@@ -2,9 +2,6 @@
 
 标签（空格分隔）： R语言
 
----
-标签（空格分隔）： R语言
-
 因项目需要，结合自身专业知识，故而接触了R语言及一些常用分类器。记录下自己这一个多月的学习历程。
 
 ----------
@@ -37,7 +34,11 @@ R是一门脚本语言，在绘图方面有着非常强的能力，它可以让�
 截个图
 wordcloud.txt:
 
-worcloud.png:
+![image](https://github.com/txHe/R-TextClassification/blob/master/wordcloudtxt.PNG)
+
+wordcloud.png:
+
+![image](https://github.com/txHe/R-TextClassification/blob/master/WordCloud.png)
 
 
 
